@@ -1,0 +1,76 @@
+<div class="container my-5" id="content">
+  <div class="row" ng-show="!inProgess">
+    <div class="col text-center">
+      <button class="btn btn-primary" ng-click="start()" onclick="thoigian(600)">Start the Quiz</button>
+    </div>
+  </div>
+
+  <div ng-show="inProgess">
+    <div class="row" ng-show="quizOver">
+      <h3>Quiz is Over</h3>
+      <div class="col text-center">
+        <button class="btn btn-primary" ng-click="reset()" onclick="thoigian(600)">Bạn có muốn làm lại?</button>
+      </div>
+    </div>
+    <div ng-show="!quizOver">
+      <div class="row">
+        <div class="col text-center">
+          <h2>
+            <i class="fas fa-clock" style="color: #23B5E1"></i>
+            <span id="sophut"></span> : <span id="sogiay"></span>
+        </div>
+      </div>
+      <div class="row"></div>
+      <article class="col-md">
+        <div class="row">
+          <div class="col">
+            <div class="card border-info">
+              <div class="card-header text-white" style="background-color: #23B5E1;">
+                <img src="images/logos/JAAV.png" width="30" class="border border-primary rounded-lg" alt="">
+                <span>{{subjectName}}</span>
+                <span class="float-end timer" style="padding: .28em .7em;">{{id}}/10</span>
+              </div>
+              <div class="card-body">
+
+                <div class="card-text" style="font-weight: 500;">
+                  <label for="">{{question}}</label>
+                  <hr>
+                  <div class="form-check" ng-repeat="option in options">
+
+                    <label class="form-check-label" for="Radios1">
+                      <input class="form-check-input" type="radio" name="answer" value="{{option.Id}}">
+                      {{option.Text}}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div ng-show="answerMode">
+                  <button ng-click="checkAnswer()" class="btn btn-primary">Submit</button>
+                </div>
+                <div ng-hide="answerMode">
+                  <button ng-click="nextQuestion()" class="btn btn-primary">Next</button>
+                  <span ng-show="correctAns">Đáp án chính xác</span>
+                  <span ng-hide="correctAns">Xin lỗi ! đáp án sai</span>
+                </div>
+                <span class="float-end" style=" font-size: 90%; font-weight: 500;">Điểm:
+                  {{score}}/10</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <div class="col-md mt-5 mb-4">
+        <div class="card-header mb-4" style="font-size: 25px;">
+          <span class=""></span>
+          <strong style="font-size: 40px;">Các bài nỗi bật</strong>
+        </div>
+        <div class="list-group" ng-controller="subjectsCtrl">
+          <div ng-repeat="sub in list_subject">
+            <a href="#">{{sub.Name}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

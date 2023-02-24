@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>eLEARNING - Hệ thống trắc nghiệm trực tuyến</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+      <!-- AngularJS -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Icon Font Stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Libraries Stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Customized Bootstrap Stylesheet -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+
+  <!-- Template Stylesheet -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body ng-app="myApp" ng-controller="updateAccountCtrl">
+  <!-- Spinner Start -->
+  <div id="spinner"
+    class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <!-- Spinner End -->
+
+
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>STLearning</h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="index.html" class="nav-item nav-link">Trang chủ</a>
+            <a href="about.html" class="nav-item nav-link">Giới thiệu</a>
+            <a href="feedback.html" class="nav-item nav-link" data-bs-target="#exampleModalToggle"
+                data-bs-toggle="modal">Góp ý</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Khóa học</a>
+                <div class="dropdown-menu fade-down m-0">
+                    <a href="#" class="dropdown-item">Môn học</a>
+                    <a href="quiz.html" class="dropdown-item">Bài trắc nghiệm</a>
+                </div>
+            </div>
+            <a ng-click="intro=1" href="contact.html" class="nav-item nav-link">Liên Hệ</a>
+        </div>
+        <div class="nav-item dropdown">
+            <a href="#" ng-show="student==null" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+                id="userDropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">Tài
+                khoản{{student.fullName}}<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="#" ng-hide="student==null" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+                id="userDropdown" aria-haspopup="true" aria-expanded="false"
+                data-bs-toggle="dropdown">{{student.fullName}}<i class="fa fa-arrow-right ms-3"></i></a>
+            <div class="dropdown-menu fade-down m-0" aria-labelledby="userDropdown">
+                <div ng-show="student==null">
+                    <a href="login.html" class="dropdown-item">Đăng nhập</a>
+                    <a href="login.html" class="dropdown-item">Đăng ký</a>
+                    <a href="forgotpassword.html" class="dropdown-item">Quên mật khẩu</a>
+                </div>
+                <div ng-hide="student==null">
+                    <a href="User.html" class="dropdown-item active">Thông tin cá nhân</a>
+                    <a href="changepassword.html" class="dropdown-item">Đổi mật khẩu</a>
+                    <a ng-click="logoff()" class="dropdown-item">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Navbar End -->
+
+  <!-- Thông tin cá nhân start-->
+  <div class="container-xxl py-5">
+    <div class="container">
+      <div class="row">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+          <h1 class="text-center mt-3 mb-5">Cập nhật tài khoản</h1>
+          <p>Tài khoản: {{student.username}}</p>
+        </div>
+        <div class="row">
+          <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+          </div>
+          <div class="row">
+            <form action="" name="frmUpdate">
+              <div class="form-group">
+                <label for="fullName">Họ tên</label>
+                <input type="text" ng-model="student.fullName" name="fullName" id="fullName" class="form-control"
+                  placeholder="Vui lòng nhập họ và tên" aria-describedby="fullNamehelpId" required maxlength="25"
+                  autofocus>
+                <small ng-show="frmUpdate.fullName.$error.required" id="fullNamehelpId" class="text-muted">Vui lòng nhập
+                  thông tin</small>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" ng-model="student.email" class="form-control" name="email" id="email"
+                  aria-describedby="emailHelpId" placeholder="Nhập email của bạn" required>
+                <small ng-show="frmUpdate.email.$error.required" id="emailHelpId" class="form-text text-muted">Vui lòng
+                  nhập thông tin</small>
+              </div>
+              <label class="bg-white rounded px-2" for=""><i class="">Giới tính</i></label>
+              <div class="form-check form-check-inline">
+                <input ng-model="student.gender" type="radio" class="form-check-input" id="gender" name="gender"
+                  value="true">
+                <label class="form-check-label light-blue-text" for="gender">Nam</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input ng-model="student.gender" type="radio" class="form-check-input" id="gender2" name="gender"
+                  value="false">
+                <label class="form-check-label light-blue-text" for="gender2">Nữ</label>
+              </div>
+              <div class="form-group">
+                <label for="birthday">Ngày sinh</label>
+                <input type="text" ng-model="student.birthday" name="birthday" id="birthday" class="form-control"
+                  aria-describedby="birthDayhelpId">
+                <small ng-show="frmUpdate.email.$error.required" id="birthDayhelpId" class="text-muted">Vui lòng chọn
+                  ngày</small>
+              </div>
+              <div class="form-group">
+                <label for="phoneNumber">Số điện thoại</label>
+                <input type="text" name="phoneNumber" ng-model="student.phoneNumber" id="phoneNumber" class="form-control"
+                  placeholder="Số điện thoại" aria-describedby="phoneNumberhelpId">
+                <small ng-show="frmUpdate.email.$error.required" id="phoneNumberhelpId" class="text-muted">Vui lòng nhập
+                  thông tin</small>
+              </div>
+              <div class="form-group">
+                <label for="marks">Điểm</label>
+                <input type="text" name="marks" ng-model="student.marks" id="marks" class="form-control"
+                  placeholder="Điểm" aria-describedby="markshelpId">
+                <small ng-show="frmUpdate.email.$error.required" id="markshelpId" class="text-muted">Vui lòng nhập
+                  thông tin</small>
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-sm-12">
+                <button ng-click="cancel()" type="submit" class="btn btn-danger"
+                  style="float:right; margin-top:15px; border-radius: 0 20px 20px 0;"><i
+                    class="bi bi-x-circle-fill"></i> Hủy</button>
+                <button ng-click="update()" type="submit" class="btn btn-light"
+                  style="float:right; margin-top:15px; border-radius:  20px 0 0 20px ;"><i class="bi bi-save"></i>
+                  Lưu</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- End thông tin cá nhân -->
+  <!-- Footer Start -->
+  <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+      <div class="row g-5">
+        <!-- Quick Link -->
+        <div class="col-lg-3 col-md-6">
+          <h4 class="text-white mb-3">Liên kết</h4>
+          <a class="btn btn-link" href="index.html">Trang chủ</a>
+          <a class="btn btn-link" href="about.html">Giới thiệu</a>
+          <a class="btn btn-link" href="contact.html">Liên hệ</a>
+          <a class="btn btn-link" href="quiz.html">Môn học</a>
+        </div>
+
+        <!-- Quick Link End -->
+        <!-- Contact -->
+        <div class="col-lg-3 col-md-6">
+          <h4 class="text-white mb-3">Liên hệ</h4>
+          <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Tổ 1 Xuân Phú, Hòa Sơn, Hòa Vang, Đà Nẵng
+          </p>
+          <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+84 774501370</p>
+          <p class="mb-2"><i class="fa fa-envelope me-3"></i>cuonghqpd06290@fpt.edu.vn</p>
+          <div class="d-flex pt-2">
+            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <!-- Contact End -->
+        <!--Gallery -->
+        <div class="col-lg-3 col-md-6">
+          <h4 class="text-white mb-3">Bộ sưu tập</h4>
+          <div class="row g-2 pt-2">
+            <div class="col-4">
+              <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+            </div>
+            <div class="col-4">
+              <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+            </div>
+            <div class="col-4">
+              <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+            </div>
+            <div class="col-4">
+              <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+            </div>
+            <div class="col-4">
+              <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+            </div>
+            <div class="col-4">
+              <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+            </div>
+          </div>
+        </div>
+        <!--Gallery End-->
+        <!-- Newsletter -->
+        <div class="col-lg-3 col-md-6">
+          <h4 class="text-white mb-3">Bản tin</h4>
+          <p>Hãy gửi thông tin email của bạn, chúng tôi sẽ liên hệ với bạn sớm nhất!</p>
+          <div class="position-relative mx-auto" style="max-width: 400px;">
+            <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Send
+              mail</button>
+          </div>
+        </div>
+
+        <!-- Newsletter End -->
+      </div>
+    </div>
+    <!--copyright-->
+    <div class="container">
+      <div class="copyright">
+        <div class="row">
+          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+            &copy; <a class="border-bottom" href="#">STLearning</a>, Tất cả quyền được bảo lưu.
+
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <div class="footer-menu">
+              <a href="index.html">Trang chủ</a>
+              <a href="#">Giới thiệu</a>
+              <a href="#">Liên hệ</a>
+              <a href="#">Môn học</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer End -->
+
+
+  <!-- Back to Top -->
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+  <!-- JavaScript Libraries -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <!-- Template Javascript -->
+  <script src="js/main.js"></script>
+  <script src="js/app/updateaccountCtrl.js"></script>
+</body>
+
+</html>

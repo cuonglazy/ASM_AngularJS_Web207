@@ -1,0 +1,44 @@
+{
+  "listStudents": [
+    {
+      "username": "teonv",
+      "password": "anhnhoem",
+      "fullName": "Nguyễn Văn Tèo",
+      "email": "teonv@fpt.edu.vn",
+      "gender": "true",
+      "birthday": "21-12-1992",
+      "marks": "0",
+      "id": "1"
+    },
+    {
+      "username": "pheonv",
+      "password": "anhnhoem1",
+      "fullName": "Nguyễn Văn Chí Phèo",
+      "email": "pheonv@fpt.edu.vn",
+      "gender": "true",
+      "birthday": "11-10-1986",
+      "schoolfee": "2500000",
+      "marks": "0",
+      "phoneNumber": "0774552125",
+      "id": "2"
+    },
+    {
+      "username": "nopt",
+      "password": "123456",
+      "fullName": "Phạm Thị Lối",
+      "email": "nopt@fpt.edu.vn",
+      "gender": "true",
+      "birthday": "15-05-1996",
+      "marks": "19",
+      "phoneNumber": "0774552125",
+      "id": "3"
+    },
+    {
+      "username": "vanluyn",
+      "password": "123123",
+      "fullName": "Lê Văn Luyn",
+      "email": "cuong@gmail.com",
+      "id": "4"
+    }
+  ]
+}
